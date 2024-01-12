@@ -1,0 +1,85 @@
+<%- include("header") %>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .blog-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .blog-group {
+    margin-bottom: 20px;
+  }
+
+  .blog-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  .blog-group p {
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f2f2f2;
+  }
+</style>
+
+
+<div class="blog-container">
+  <h2>View Blog</h2>
+
+  
+  <div class="blog-group">
+    <label for="cover">Cover:</label>
+    <!-- <% if (data.cover) { %>
+      <img src="/<%= data.cover %>" alt="Cover Image">
+    <% } else { %>
+      <p>No cover image available</p>
+    <% } %> -->
+
+
+    <% if (data.cover) { %>
+        <td>
+          <img src="/<%= data.cover %>" alt="Cover Image">
+        </td>
+      <% } else { %>
+        <td>
+            <img src="/uploads/image-1688130788506" alt="Default Image">
+          </td>
+          
+      <% } %>
+      
+  </div>
+
+
+
+
+  <div class="blog-group">
+    <label for="title">Title:</label>
+    <p><%= data.title || '' %></p>
+  </div>
+
+  <div class="blog-group">
+    <label for="category">Category:</label>
+    <p><%= data.category || '' %></p>
+  </div>
+
+  <div class="blog-group">
+    <label for="description">Description:</label>
+    <p><%= data.description || '' %></p>
+  </div>
+
+</div>
+
+<%- include("footer") %>

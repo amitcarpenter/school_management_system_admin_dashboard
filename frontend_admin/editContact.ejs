@@ -1,0 +1,103 @@
+<%- include("header") %>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .form-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 4px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-group input[type="text"],
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .form-group input[type="file"] {
+      display: block;
+      margin-top: 5px;
+    }
+
+    .form-group input[type="submit"] {
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+
+  <div class="form-container">
+    <h2>Edit Form</h2>
+    <form method="POST" action="/contact/update/<%= data._id %>" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="heading">Heading:</label>
+        <input type="text" id="heading" name="heading" value="<%= data.heading || '' %>">
+      </div>
+
+      <div class="form-group">
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" value="<%= data.address || '' %>">
+      </div>
+
+      <div class="form-group">
+        <label for="mobile">Mobile:</label>
+        <input type="text" id="mobile" name="mobile" value="<%= data.mobile || '' %>">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" value="<%= data.email || '' %>">
+      </div>
+
+
+      <!-- 
+    <div class="form-group">
+      <label for="bgImage">Background Image:</label>
+      <input type="file" id="bgImage" name="bgImage" value="<%= data.bgImage || '' %>">
+    </div> -->
+
+
+      <!-- <div class="form-group">
+      <label for="bgImage">Background Image:</label>
+      <input type="file" id="bgImage" name="bgImage" value="<%= data.bgImage || '' %>">
+    </div> -->
+
+      <div class="form-group">
+        <label for="bgImage">bgImage:</label>
+        <input type="file" id="bgImage" name="bgImage" value="<%= data.bgImage || '' %>">
+        <% if (data.bgImage) { %>
+          <img src="/<%= data.bgImage %>" alt="Current Cover" style="max-width: 200px;">
+          <% } %>
+      </div>
+
+      <div class="form-group">
+        <input type="submit" value="Submit">
+      </div>
+    </form>
+  </div>
+
+
+  <%- include("footer") %>

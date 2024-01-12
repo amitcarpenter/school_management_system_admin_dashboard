@@ -1,0 +1,116 @@
+<%- include("header") %>
+
+  <head>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+  </head>
+
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+
+    .sectionBtn {
+      border-radius: 5px;
+      background-color: #12D9DF;
+      width: 100px;
+      padding: 3px 8px;
+      font-size: 15px;
+      border: none;
+
+    }
+
+
+    .EditBtn {
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      padding: 3px 12px;
+      font-size: 15px;
+      border: none;
+    }
+
+    .dataTables_wrapper {
+      position: relative;
+      clear: both;
+      padding: 10px;
+    }
+  </style>
+
+  <body>
+    <table id="data-table" class="display">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Section</th>
+          <th>Heading</th>
+          <th>Massage</th>
+          <th>Image</th>
+          <th>Background Image</th>
+          <th>Button Text</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% data.forEach((row, index)=> { %>
+          <tr>
+            <td>
+              <%= index + 1 %>
+            </td>
+            <td><button class="sectionBtn">
+                <%= row.section %>
+              </button></td>
+            <td>
+              <%= row.heading %>
+            </td>
+            <td>
+              <%= row.massage %>
+            </td>
+            <td>
+              <%= row.image %>
+            </td>
+            <td>
+              <%= row.bgImage %>
+            </td>
+            <td>
+              <%= row.buttonText %>
+            </td>
+            <td>
+              <form action="/class/edit/<%= row._id %>" method="GET">
+                <button type="submit" class="EditBtn"><i class="fa-solid fa-pen-to-square"
+                    style="color:green;"></i></button>
+              </form>
+            </td>
+          </tr>
+          <% }) %>
+      </tbody>
+    </table>
+
+
+    <%- include("footer") %>
+
+
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+      <script>
+        $(document).ready(function () {
+          $('#data-table').DataTable();
+        });
+      </script>
+
+  </body>

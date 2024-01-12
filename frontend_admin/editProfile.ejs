@@ -1,0 +1,180 @@
+<%- include("header") %>
+
+
+
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>User Profile Form</title>
+        <!-- Add Bootstrap CSS link here -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <style>
+            .profile-image {
+                width: 150px;
+                height: 150px;
+                object-fit: cover;
+            }
+
+            .custom-file-input:lang(en)~.custom-file-label::after {
+                content: "Choose File";
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div class="container mt-2">
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>User Profile</h4>
+                        </div>
+                        <div class="card-body">
+
+                            <form action="/update" method="post" enctype="multipart/form-data">
+
+
+                                <div class="text-center mt-3">
+                                    <img src="/<%= data.profileImage %>" alt="Current Image" class="profile-image mb-3">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="profileImage"
+                                            name="profileImage" aria-describedby="inputGroupFileAddon01">
+                                        <label class="custom-file-label" for="profileImage">Choose file</label>
+                                    </div>
+                                </div>
+
+                         
+
+                                <input type="hidden" name="userId" value="<%= data._id %>">
+
+
+
+
+
+                                <div class="form-group mt-3">
+                                    <div class="row">
+                                        <div class="col">
+                                            <input type="text" class="form-control" placeholder="First name"
+                                                name="firstname" id="firstname" value="<%= data.firstname  %>">
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" class="form-control" placeholder="Last name"
+                                                name="lastname" id="lastname" value="<%= data.lastname %>">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        placeholder="Enter your email" value="<%= data.email %>">
+                                </div>
+                                <input type="hidden" id="userId" value="<%= data._id %>">
+
+                                <button type="submit" id="updateProfileBtn" class="btn btn-primary">Update
+                                    Profile</button>
+                                <button type="button" class="btn btn-secondary ml-2" data-toggle="modal"
+                                    data-target="#resetPasswordModal">Reset Password</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            // Function to update user profile
+            async function updateProfile() {
+
+                const firstname = document.querySelector('#firstname').value;
+                const lastname = document.querySelector('#lastname').value;
+
+                // const profileImage = document.querySelector('#profileImage').files[0];
+
+
+
+                const formData = new FormData();
+
+                formData.append('firstname', firstname);
+                formData.append('lastname', lastname);
+
+
+
+                try {
+                    const response = await axios.put(`/api/update-profile/${id}`, { firstname, lastname });
+                    console.log('Profile updated:', response.data);
+                } catch (error) {
+                    console.error('Error updating profile:', error);
+                }
+            }
+
+            // Attach event listener to the "Update Profile" button
+            document.querySelector('#updateProfileBtn').addEventListener('click', updateProfile);
+        </script>
+
+        <!-- Add Bootstrap JS and Popper.js scripts here -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+
+        <!-- Reset Password Modal -->
+        <div class="modal fade" id="resetPasswordModal" tabindex="-1" role="dialog"
+            aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="resetPasswordModalLabel">Reset Password</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="/resetpassword" method="post">
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label for="oldPassword">Old Password</label>
+                                <input type="password" class="form-control" id="oldPassword" name="oldPassword"
+                                    placeholder="Enter old password">
+                            </div>
+                            <div class="form-group">
+                                <label for="newPassword">New Password</label>
+                                <input type="password" class="form-control" id="newPassword"
+                            name="newPassword"
+                                    placeholder="Enter new password">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm Password</label>
+                                <input type="password" class="form-control" id="confirmPassword"
+                                 name="confirmPassword"   placeholder="Confirm new password">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Reset Password</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+        <%- include("footer") %>
